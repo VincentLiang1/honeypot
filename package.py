@@ -31,7 +31,7 @@ import re
 
 DEFAULT_PY_VERSION = "3.13.13"
 PACKAGE_NAME = "honeypot"
-COPY_FILES = ["main.py", "setup.py", "Setup.bat", "Uninstall.bat", "config.example.json", "README.md"]
+COPY_FILES = ["main.py", "setup.py", "Setup.bat", "Uninstall.bat", "config.example.json", "README.md", "LICENSE"]
 COPY_DIRS = ["honeypot"]
 
 
