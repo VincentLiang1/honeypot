@@ -1,0 +1,49 @@
+{
+    "log_file": "honeypot.log",
+    "log_rotate": { "keep_days": 1827, "daily_max_mb": 50 },
+    "state_file": "state.json",
+    "services": {
+        "http":        { "enabled": true, "port": 80,    "interface": "0.0.0.0" },
+        "https":       { "enabled": true, "port": 443,   "interface": "0.0.0.0" },
+        "mssql":       { "enabled": true, "port": 1433,  "interface": "0.0.0.0" },
+        "ssh":         { "enabled": true, "port": 22,    "interface": "0.0.0.0" },
+        "rdp":         { "enabled": true, "port": 3389,  "interface": "0.0.0.0" },
+        "mysql":       { "enabled": true, "port": 3306,  "interface": "0.0.0.0" },
+        "postgres":    { "enabled": true, "port": 5432,  "interface": "0.0.0.0" },
+        "redis":       { "enabled": true, "port": 6379,  "interface": "0.0.0.0" },
+        "mongodb":     { "enabled": true, "port": 27017, "interface": "0.0.0.0" },
+        "vnc":         { "enabled": true, "port": 5900,  "interface": "0.0.0.0" },
+        "ldap":        { "enabled": true, "port": 389,   "interface": "0.0.0.0" },
+        "ldaps":       { "enabled": true, "port": 636,   "interface": "0.0.0.0" },
+        "oracle":      { "enabled": true, "port": 1521,  "interface": "0.0.0.0" },
+        "winrm":       { "enabled": true, "port": 5985,  "interface": "0.0.0.0" },
+        "winrm_https": { "enabled": true, "port": 5986,  "interface": "0.0.0.0" },
+        "dns":         { "enabled": true, "port": 53,    "interface": "0.0.0.0" },
+        "snmp":        { "enabled": true, "port": 161,   "interface": "0.0.0.0" }
+    },
+    "http_response": {
+        "status": 200,
+        "server_header": "Microsoft-IIS/10.0",
+        "body": "<html><head><title>Welcome</title></head><body><h1>Welcome</h1></body></html>"
+    },
+    "whitelist": [
+        "127.0.0.1",
+        "::1",
+        "10.0.0.0/8"
+    ],
+    "notify": {
+        "cooldown_minutes": 10,
+        "email": {
+            "enabled": false,
+            "smtp_server": "smtp.example.com",
+            "smtp_port": 587,
+            "use_tls": true,
+            "username": "honeypot@example.com",
+            "password": "",
+            "from_email": "honeypot@example.com",
+            "to_emails": [ "security@example.com" ],
+            "timeout_seconds": 30
+        }
+    },
+    "heartbeat": { "enabled": true, "time": "09:00" }
+}

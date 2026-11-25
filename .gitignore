@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# 執行期產物
+config.json
+state.json
+*.log
+dist/
