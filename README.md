@@ -1,4 +1,4 @@
-# SimpleHoneypot
+# Honeypot
 
 只用 Python 標準庫的低互動蜜罐。監聽 17 個駭客常掃的 port（HTTP、HTTPS、MSSQL、SSH、RDP、MySQL、
 Redis、DNS、SNMP……完整清單見下表），有人連進來就寫 log、寄 Email。
@@ -17,9 +17,9 @@ python package.py              :: 版本號自動 +1（0.1.1 → 0.1.2），同�
 python package.py --no-bump    :: 重做同一版，不改版本號
 ```
 
-產出 `dist\SimpleHoneypot-<版本>.zip`，裡面是 embeddable Python 加程式碼。啟動 log 的第一行會印版本，可對照 zip 檔名。帶到 DMZ 機器上：
+產出 `dist\honeypot-<版本>.zip`，裡面是 embeddable Python 加程式碼。啟動 log 的第一行會印版本，可對照 zip 檔名。帶到 DMZ 機器上：
 
-1. 解壓到固定位置，例如 `C:\SimpleHoneypot`（不要放 Program Files，服務要在這裡寫 log）。
+1. 解壓到固定位置，例如 `C:\honeypot`（不要放 Program Files，服務要在這裡寫 log）。
 2. **按兩下 `Setup.bat`**。它會要求 UAC 提權，列出預設要開的全部 port 並只問「不想開哪些」，再問白名單、SMTP 伺服器與收件者、
    heartbeat 時間，寫出 `config.json`、寄一封測試信、停掉舊服務（如果有）、自動把綁不到的 port 關掉、登錄成服務、加防火牆規則、
    啟動服務、印出最近的 log。綁不到的 port 只會在 `config.json` 裡被改成 `enabled: false`，檔案其他內容（包括留空的密碼）不動。
@@ -35,11 +35,11 @@ copy config.example.json config.json
 notepad config.json
 python\python.exe main.py                    :: 前景試跑，Ctrl+C 結束
 python\python.exe main.py --install-service  :: 系統管理員命令提示字元
-sc start SimpleHoneypot
+sc start Honeypot
 ```
 
-服務名稱 `SimpleHoneypot`，開機自動啟動、以 LocalSystem 執行、當掉自動重啟（5 秒、5 秒、60 秒）。
-`sc stop SimpleHoneypot` 會走正常關機流程：停服務、寄「已關閉」通知、等信寄完。
+服務名稱 `Honeypot`，開機自動啟動、以 LocalSystem 執行、當掉自動重啟（5 秒、5 秒、60 秒）。
+`sc stop Honeypot` 會走正常關機流程：停服務、寄「已關閉」通知、等信寄完。
 
 離線機器注意：
 
@@ -52,7 +52,7 @@ Windows 沒有「低 port 要管理員」這回事，綁不上 80 / 443 / 1433 �
 
 - **port 已被佔用**：80 / 443 常是 http.sys 或 IIS，1433 是本機 SQL Server。`netstat -ano | findstr :80` 查 PID
 - **Hyper-V / WSL 保留了 port 區段**：症狀是 WinError 10013。`netsh int ipv4 show excludedportrange protocol=tcp` 查
-- **防火牆沒放行**：服務不會跳出詢問視窗。`netsh advfirewall firewall add rule name="SimpleHoneypot" dir=in action=allow program="C:\SimpleHoneypot\python\python.exe"`
+- **防火牆沒放行**：服務不會跳出詢問視窗。`netsh advfirewall firewall add rule name="Honeypot" dir=in action=allow program="C:\honeypot\python\python.exe"`
 - **設定檔的 interface 寫錯**
 
 綁失敗的服務會寄一封通知並寫 ERROR，其他服務照跑；全部失敗才會以 exit code 1 結束（服務模式下 SCM 會依重啟規則再試）。

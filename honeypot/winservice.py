@@ -26,8 +26,8 @@ from typing import Any, Callable
 
 log = logging.getLogger("honeypot")
 
-SERVICE_NAME = "SimpleHoneypot"
-DISPLAY_NAME = "SimpleHoneypot 蜜罐"
+SERVICE_NAME = "Honeypot"
+DISPLAY_NAME = "Honeypot 蜜罐"
 DESCRIPTION = "低互動蜜罐：監聽 HTTP / HTTPS / MSSQL / SSH / RDP / DNS / SNMP 等 17 個常被掃的 port，有人連就寫 log、寄信"
 
 SERVICE_WIN32_OWN_PROCESS = 0x00000010

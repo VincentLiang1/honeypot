@@ -28,7 +28,7 @@ from honeypot.services import CATALOG  # noqa: E402
 from honeypot.services.base import open_socket  # noqa: E402
 
 CONFIG_FILE = "config.json"
-FIREWALL_RULE = "SimpleHoneypot"
+FIREWALL_RULE = "Honeypot"
 BUSY_HINT = "  常見原因：IIS / http.sys 佔 80、443；SQL Server 佔 1433；WinRM 佔 5985；Hyper-V 保留區段。"
 
 
@@ -202,7 +202,7 @@ def test_mail(cfg: dict) -> bool:
         return True
     print(f"寄到 {', '.join(email['to_emails'])} 經由 {email['smtp_server']}:{email['smtp_port']} ...")
     try:
-        SmtpMailSender(email)(f"[蜜罐] [{hostname()}] 安裝測試信", "SimpleHoneypot 安裝精靈寄出的測試信，收到表示 SMTP 設定正確。\n")
+        SmtpMailSender(email)(f"[蜜罐] [{hostname()}] 安裝測試信", "Honeypot 安裝精靈寄出的測試信，收到表示 SMTP 設定正確。\n")
     except Exception as exc:  # noqa: BLE001
         print(f"寄信失敗：{exc}")
         return ask_yes("寄信失敗，仍要繼續安裝嗎", False)
@@ -298,7 +298,7 @@ def install(args: argparse.Namespace) -> int:
     from honeypot import winservice
 
     main_py = os.path.join(os.path.dirname(os.path.abspath(__file__)), "main.py")
-    print(f"SimpleHoneypot 安裝精靈　主機 {hostname()}　資料夾 {os.getcwd()}")
+    print(f"Honeypot 安裝精靈　主機 {hostname()}　資料夾 {os.getcwd()}")
     print(f"Python：{sys.executable}")
 
     if not args.config_only and not winservice.is_admin():
@@ -391,7 +391,7 @@ def main() -> int:
     if sys.stdout is not None and hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(errors="replace")
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
-    parser = argparse.ArgumentParser(description="SimpleHoneypot 安裝精靈")
+    parser = argparse.ArgumentParser(description="Honeypot 安裝精靈")
     parser.add_argument("--config-only", action="store_true", help="只問答寫 config.json，不裝服務")
     parser.add_argument("--uninstall", action="store_true", help="停止並移除服務")
     args = parser.parse_args()

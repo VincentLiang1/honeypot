@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""SimpleHoneypot 入口。
+"""Honeypot 入口。
 
     python main.py                      # 前景執行，用 config.json，沒有就全用預設值
     python main.py -c other.json
@@ -52,7 +52,7 @@ def setup_logging(cfg: dict) -> None:
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description=f"SimpleHoneypot {__version__}")
+    parser = argparse.ArgumentParser(description=f"Honeypot {__version__}")
     parser.add_argument("-c", "--config", default="config.json", help="設定檔路徑（預設 config.json）")
     parser.add_argument("--ports", default="", help="覆寫 port，例如 http=8080,https=8443,mssql=11433")
     parser.add_argument("--no-email", action="store_true", help="這次不寄信（測試用）")
@@ -177,7 +177,7 @@ def _run(
     on_running: Callable[[], None] | None = None,
 ) -> int:
     """啟動服務、等 stop 旗標（或 Ctrl+C）、收尾。前景與服務模式共用。"""
-    log.info("SimpleHoneypot %s 啟動，工作目錄 %s", __version__, os.getcwd())
+    log.info("Honeypot %s 啟動，工作目錄 %s", __version__, os.getcwd())
     if os.path.exists(args.config):
         log.info("設定檔 %s", os.path.abspath(args.config))
     else:

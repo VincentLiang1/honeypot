@@ -4,9 +4,9 @@
     python package.py                         # 從 python.org 下載 embeddable zip（開發機要能上網）
     python package.py --zip python-3.13.13-embed-amd64.zip   # 用已經下載好的 zip
 
-產出 dist/SimpleHoneypot/ 與 dist/SimpleHoneypot-<版本>.zip：
+產出 dist/honeypot/ 與 dist/honeypot-<版本>.zip：
 
-    SimpleHoneypot/
+    honeypot/
       python/            embeddable Python（含 ssl、smtplib，smtp 的 STARTTLS 要用）
       main.py
       honeypot/
@@ -30,7 +30,7 @@ import zipfile
 import re
 
 DEFAULT_PY_VERSION = "3.13.13"
-PACKAGE_NAME = "SimpleHoneypot"
+PACKAGE_NAME = "honeypot"
 COPY_FILES = ["main.py", "setup.py", "Setup.bat", "Uninstall.bat", "config.example.json", "README.md"]
 COPY_DIRS = ["honeypot"]
 
@@ -75,7 +75,7 @@ def download(version: str, into: str) -> str:
         print(f"已有 {target}，不重新下載")
         return target
     print(f"下載 {url}")
-    req = urllib.request.Request(url, headers={"User-Agent": "SimpleHoneypot-packager"})
+    req = urllib.request.Request(url, headers={"User-Agent": "honeypot-packager"})
     with urllib.request.urlopen(req, timeout=60) as resp, open(target, "wb") as fh:
         shutil.copyfileobj(resp, fh)
     return target
@@ -151,7 +151,7 @@ def make_zip(out_dir: str, zip_path: str) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="做 SimpleHoneypot 離線部署包")
+    parser = argparse.ArgumentParser(description="做 Honeypot 離線部署包")
     parser.add_argument("--zip", help="已下載的 embeddable Python zip；不給就從 python.org 下載")
     parser.add_argument("--python-version", default=DEFAULT_PY_VERSION, help=f"要下載的版本（預設 {DEFAULT_PY_VERSION}）")
     parser.add_argument("--dist", default="dist", help="輸出資料夾（預設 dist）")

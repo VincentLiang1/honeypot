@@ -1,6 +1,6 @@
 @echo off
 chcp 950 >nul
-title SimpleHoneypot 移除
+title Honeypot 移除
 
 rem 切到這個 .bat 所在的資料夾（提權後 CWD 會變成 System32）
 cd /d "%~dp0"

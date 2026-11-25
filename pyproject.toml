@@ -1,5 +1,5 @@
 [project]
-name = "simple-honeypot"
+name = "honeypot"
 version = "0.1.5"
 description = "只用標準庫的低互動蜜罐：HTTP / HTTPS / MSSQL / SSH / RDP / DNS / SNMP 等 17 個 port，有人連就寫 log、寄信"
 requires-python = ">=3.12"
